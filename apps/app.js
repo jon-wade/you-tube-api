@@ -2,12 +2,14 @@ var query="catherine hornby";
 
 $(function(){
 
+    $('#overlay').hide();
     $('#submit').click(function(){
         event.preventDefault();
         query = $('#query').val();
         console.log(query);
         getRequests(query);
     });
+
 
 });
 
@@ -16,7 +18,7 @@ function getRequests(searchTerm){
         part: "snippet",
         key: "AIzaSyD-SSfvd0lIMI6xwScaT-npjkptHpYKzoc",
         q: searchTerm,
-        maxResults: 50,
+        maxResults: 48
         //order: "viewCount"
     };
     url="https://www.googleapis.com/youtube/v3/search";
@@ -38,24 +40,43 @@ function showResults(data){
 
     //iterate through the returned JSON data array
     for (var i=0; i<data.items.length; i++) {
-        //console.log(data.items[i].snippet.title);
-        //console.log(data.items[i].snippet.publishedAt);
-        //console.log(data.items[i].snippet.description);
-        //console.log(data.items[i].snippet.thumbnails.high.url);
         //create a thumbnail object for each thumbnail returned
         var thumb = new Thumbnail(data.items[i].snippet.thumbnails.medium.url, data.items[i].snippet.thumbnails.medium.width, data.items[i].snippet.thumbnails.medium.height);
-        //console.log("URL= " + thumb.url);
-        //console.log("Width= " + thumb.width);
-        //console.log("Height= " + thumb.height);
+        //get videoid from a different part of the returned object
         var videoid = data.items[i].id.videoId;
 
-        html += '<li><a href="https://youtu.be/' + videoid + '" target="_blank" rel="external"><img src="'
-                + thumb.url + '" id="tn' + i + '" alt="video image" title="' + data.items[i].snippet.title + ' on YouTube"></a></li>';
+
+        //commented code belows allows each of the video thumbnails to be clicked to go through to watch on YouTube
+        //html += '<li><a href="https://youtu.be/' + videoid + '" target="_blank" rel="external"><img src="'
+        //    + thumb.url + '" id="tn' + i + '" alt="video image" title="' + data.items[i].snippet.title + ' on YouTube"></a></li>';
+
+        //this version has no anchor links and is used to create the lightbox affect
+        html += '<li><img src="' + thumb.url + '" id="tn' + i + '" alt="video image" name="' + videoid + '"></li>';
     }
+
+    //display the search results on the page
     $('#search-results').html(html);
+
+    //some thumbnails come back as non-standard sizes, so need to be made consistent (same height, different widths, same aspect ratio)
     setThumbnailDimensions(data.items.length);
+
+    //evolving lightbox functionality
+    $('li').click(function(){
+        console.log($(this).children().attr('name'));
+        window.scrollTo(0,0);
+        $('#overlay').show();
+        $('#body').css('opacity', '0.2');
+        $('#overlay').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + $(this).children().attr('name') + '" frameborder="0" allowfullscreen></iframe>');
+        $('#overlay').click(function(){
+            $(this).children().remove();
+            $(this).hide();
+            $('#body').css('opacity', '1');
+        })
+        //$('li').off();
+    });
 }
 
+//function to sort out the inconsistent image sizing
 function setThumbnailDimensions(numImages) {
     for (var i = 0; i < numImages; i++) {
         var width = $('#tn' + i).width();

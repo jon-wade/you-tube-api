@@ -46,3 +46,22 @@ h2 {
     display: block;
     margin: 0 auto;
 }
+
+#overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30%;
+    height: 400px;
+    width: 663px;
+    border: 2px solid rgba(255,255,255,0.5);
+    margin: auto;
+    background-color: gray;
+    z-index: 100;
+}
+
+iframe {
+    display: block;
+    margin: auto auto;
+    padding-top:45px;
+}
