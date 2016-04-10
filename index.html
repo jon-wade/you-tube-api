@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <title>api-test</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato|Noto+Serif' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="overlay">
-
-    </div>
+    <div id="overlay"></div>
     <div id="body">
         <section id="header">
             <ul id="title">
                 <li><img id="logo" src="img/YouTube-logo-256x256.png">
                 <li><h1>API Hack</h1>
             </ul>
-            <h2>Enter your search query below to pull the most relevant video results into the gallery below</h2>
+            <h2>Enter your search query below to pull the most relevant video results into the gallery below. Use the left and right arrow buttons to scroll through the results. Click on a thumbnail to open a lightbox and watch the video in situ.</h2>
             <form id="search-term">
                 <input id="query" type="text">
-                <button id="submit">search now</button>
+                <button id="submit">search</button>
+                <button id="previous">&lt;</button>
+                <button id="next">&gt;</button>
             </form>
         </section>
         <div>

@@ -4,7 +4,7 @@ html {
 
 body {
     background-color: black;
-    font-family: "EB Garamond", serif;
+    font-family: "Noto Serif", serif;
 }
 
 h1, h2 {
@@ -14,6 +14,7 @@ h1, h2 {
 h2 {
     font-size: 1em;
     margin-top: -50px;
+    padding: 0 25%;
 }
 
 #logo{
@@ -43,13 +44,16 @@ ul#title {
     height: 30px;
     border-radius: 3px;
     font-size: 1.2em;
+    font-family: "Noto Serif", serif;
 }
 
-#submit {
+#submit, #next, #previous {
     height: 36px;
     border-radius: 3px;
     font-size: 1.2em;
-    padding: 0 2px;
+    padding: 0px 5px;
+    font-family: "Noto Serif", serif;
+    margin-left: 5px;
 }
 
 #search-results li {
@@ -77,6 +81,13 @@ ul#title {
     margin: auto;
     background-color: gray;
     z-index: 100;
+    border-radius: 5px;
+}
+p#close {
+    position: relative;
+    top: -375px;
+    left: 628px;
+    font-size: 1.5em;
 }
 
 iframe {

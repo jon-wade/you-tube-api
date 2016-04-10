@@ -1,14 +1,31 @@
-var query="catherine hornby";
+var query="";
+var nextToken="";
+var prevPageToken="";
 
 $(function(){
 
     $('#overlay').hide();
+    $('#next').hide();
+    $('#previous').hide();
     $('#submit').click(function(){
         event.preventDefault();
         query = $('#query').val();
         console.log(query);
         getRequests(query);
     });
+
+    $('#next').click(function(){
+        event.preventDefault();
+        query = $('#query').val();
+        getNextRequests(query, nextToken);
+    });
+
+    $('#previous').click(function(){
+        event.preventDefault();
+        query = $('#query').val();
+        getNextRequests(query, prevPageToken);
+    });
+
 
 
 });
@@ -18,11 +35,30 @@ function getRequests(searchTerm){
         part: "snippet",
         key: "AIzaSyD-SSfvd0lIMI6xwScaT-npjkptHpYKzoc",
         q: searchTerm,
-        maxResults: 48
+        maxResults: 12,
         //order: "viewCount"
     };
     url="https://www.googleapis.com/youtube/v3/search";
     $.getJSON(url, params, function(data){
+
+        console.log(data)
+        console.log(data.items);
+        showResults(data);
+    });
+}
+
+function getNextRequests(searchTerm, token){
+    var params = {
+        part: "snippet",
+        key: "AIzaSyD-SSfvd0lIMI6xwScaT-npjkptHpYKzoc",
+        q: searchTerm,
+        maxResults: 12,
+        pageToken: token
+    };
+    url="https://www.googleapis.com/youtube/v3/search";
+    $.getJSON(url, params, function(data){
+
+        console.log(data)
         console.log(data.items);
         showResults(data);
     });
@@ -57,6 +93,12 @@ function showResults(data){
     //display the search results on the page
     $('#search-results').html(html);
 
+    //add a more button and grab the nextPageToken from the current data object
+    $('#next').show();
+    $('#previous').show();
+    nextToken = data.nextPageToken;
+    prevPageToken = data.prevPageToken;
+
     //some thumbnails come back as non-standard sizes, so need to be made consistent (same height, different widths, same aspect ratio)
     setThumbnailDimensions(data.items.length);
 
@@ -67,11 +109,11 @@ function showResults(data){
         //show lightbox and dim the main content and pull in the youtube video as an iframe
         $('#overlay').show();
         $('#body').css('opacity', '0.2');
-        $('#overlay').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + $(this).children().attr('name') + '" frameborder="0" allowfullscreen></iframe>');
+        $('#overlay').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + $(this).children().attr('name') + '" frameborder="0" allowfullscreen></iframe><p id="close">&#10005;</p>');
         //hide the lightbox and stop playback when ??? clicked
-        $('#overlay').click(function(){
-            $(this).children().remove();
-            $(this).hide();
+        $('p#close').click(function(){
+            $(this).siblings().remove();
+            $(this).parent().hide();
             $('#body').css('opacity', '1');
         });
     });
