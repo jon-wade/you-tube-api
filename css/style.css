@@ -39,6 +39,7 @@ h2 {
     border: 1px rgba(255,255,255,0.5) solid;
     padding: 0 auto;
     margin-right: 5px;
+    color: white;
 }
 
 #search-results li img {

@@ -47,9 +47,10 @@ function showResults(data){
         //console.log("URL= " + thumb.url);
         //console.log("Width= " + thumb.width);
         //console.log("Height= " + thumb.height);
+        var videoid = data.items[i].id.videoId;
 
-
-        html += '<li><img src="' + thumb.url + '" id="tn' + i + '"></li>';
+        html += '<li><a href="https://youtu.be/' + videoid + '" target="_blank" rel="external"><img src="'
+                + thumb.url + '" id="tn' + i + '" alt="video image" title="' + data.items[i].snippet.title + ' on YouTube"></a></li>';
     }
     $('#search-results').html(html);
     setThumbnailDimensions(data.items.length);
