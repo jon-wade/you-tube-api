@@ -1,0 +1,47 @@
+html {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+h1, h2 {
+    color: white;
+}
+
+h2 {
+    font-size: 1em;
+}
+
+#header {
+    text-align: center;
+}
+
+#query {
+    width: 300px;
+    height: 30px;
+    border-radius: 3px;
+    font-size: 1.2em;
+}
+
+#submit {
+    height: 36px;
+    border-radius: 3px;
+    font-size: 1.2em;
+    padding: 0 2px;
+}
+
+#search-results li {
+    display: inline-block;
+    min-width: 320px;
+    border: 1px rgba(255,255,255,0.5) solid;
+    padding: 0 auto;
+    margin-right: 5px;
+}
+
+#search-results li img {
+    display: block;
+    margin: 0 auto;
+}
