@@ -60,19 +60,20 @@ function showResults(data){
     //some thumbnails come back as non-standard sizes, so need to be made consistent (same height, different widths, same aspect ratio)
     setThumbnailDimensions(data.items.length);
 
-    //evolving lightbox functionality
+    //lightbox functionality when thumbnail clicked
     $('li').click(function(){
-        console.log($(this).children().attr('name'));
+        //scroll to top of page to display the lightbox when a thumbnail clicked
         window.scrollTo(0,0);
+        //show lightbox and dim the main content and pull in the youtube video as an iframe
         $('#overlay').show();
         $('#body').css('opacity', '0.2');
         $('#overlay').html('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + $(this).children().attr('name') + '" frameborder="0" allowfullscreen></iframe>');
+        //hide the lightbox and stop playback when ??? clicked
         $('#overlay').click(function(){
             $(this).children().remove();
             $(this).hide();
             $('#body').css('opacity', '1');
-        })
-        //$('li').off();
+        });
     });
 }
 

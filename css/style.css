@@ -4,7 +4,7 @@ html {
 
 body {
     background-color: black;
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "EB Garamond", serif;
 }
 
 h1, h2 {
@@ -13,10 +13,29 @@ h1, h2 {
 
 h2 {
     font-size: 1em;
+    margin-top: -50px;
+}
+
+#logo{
+    width: 125px;
+    height: 125px;
 }
 
 #header {
     text-align: center;
+}
+
+ul#title {
+    padding-left:0px;
+  }
+
+#title li {
+    display: inline-block;
+}
+
+#title li h1 {
+    position: relative;
+    top: -65px;
 }
 
 #query {
